@@ -35,17 +35,17 @@ class Game:
 
 	def move_left(self):
 		self.current_block.move(0, -1)
-		if self.block_inside() == False or self.block_fits() == False:
+		if not self.block_inside() or not self.block_fits():
 			self.current_block.move(0, 1)
 
 	def move_right(self):
 		self.current_block.move(0, 1)
-		if self.block_inside() == False or self.block_fits() == False:
+		if not self.block_inside() or not self.block_fits():
 			self.current_block.move(0, -1)
 
 	def move_down(self):
 		self.current_block.move(1, 0)
-		if self.block_inside() == False or self.block_fits() == False:
+		if not self.block_inside() or not self.block_fits():
 			self.current_block.move(-1, 0)
 			self.lock_block()
 
@@ -59,7 +59,7 @@ class Game:
 		if rows_cleared > 0:
 			self.clear_sound.play()
 			self.update_score(rows_cleared, 0)
-		if self.block_fits() == False:
+		if not self.block_fits():
 			self.game_over = True
 
 	def reset(self):
@@ -78,7 +78,7 @@ class Game:
 
 	def rotate(self):
 		self.current_block.rotate()
-		if self.block_inside() == False or self.block_fits() == False:
+		if not self.block_inside() or not self.block_fits():
 			self.current_block.undo_rotation()
 		else:
 			self.rotate_sound.play()
@@ -86,7 +86,7 @@ class Game:
 	def block_inside(self):
 		tiles = self.current_block.get_cell_positions()
 		for tile in tiles:
-			if self.grid.is_inside(tile.row, tile.column) == False:
+			if not self.grid.is_inside(tile.row, tile.column):
 				return False
 		return True
 
